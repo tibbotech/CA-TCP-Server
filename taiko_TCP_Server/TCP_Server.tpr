@@ -1,0 +1,27 @@
+[project]
+version=3.07.61
+platform=Em1000
+src_lib_ver=2_00
+name=TCP_Server
+output=TCP_Server.tpc
+debug=off
+defines=/dLCD_TYPE=SAMSUNG_S6B0108 /dOBJECT_LCD=LCD_ENABLED /dOBJECT_FD=FD_ENABLED /dOBJECT_KP=KP_ENABLED 
+transport=udp_broadcast
+[address1]
+platform=Em1000
+transport=udp_broadcast
+address=0.202.0.1.5.218
+[file1]
+path=main.tbs
+type=basic
+format=
+condition=
+locked=no
+location=
+[file2]
+path=global.tbh
+type=header
+format=
+condition=
+locked=no
+location=

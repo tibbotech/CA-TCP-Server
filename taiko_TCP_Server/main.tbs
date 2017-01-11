@@ -1,0 +1,69 @@
+'---------------------------------------------------------------------------------------------------------
+'------------------------------------- Simple TCP Server Project -----------------------------------------
+'---------------------------------------------------------------------------------------------------------
+'
+'This simple TCP Server project sets up the 16 available sockets to accept TCP connections from any IP and port.
+'The range of local port number that it listents to are between 1000 - 1015
+'
+'The program will send a connection message when connection is first established. Pressing "Enter" will
+'cause the program to terminate the connection.
+'
+'Please remember, this is a very simple example and to ensure that the code is as short as possible, the
+'data from the RX buffer are taken in one character at a time so that the Carriage-Return (Enter) key stroke will
+'be captured as it comes.  For better performance, more data should be processed when the 
+'on_socket_data_arrival event fires.
+'
+'ver.09272007
+'---------------------------------------------------------------------------------------------------------
+
+
+
+include "global.tbh"
+
+sub on_sys_init
+	
+	
+	
+	dim i as byte
+	
+	for i = 0 to 15		'here we setup the 16 sockets to allow for TCP connection from all IP / Ports
+	
+		sock.num = i
+		sock.rxbuffrq(1)
+		sock.txbuffrq(1)
+		sock.protocol = PL_SOCK_PROTOCOL_TCP
+		sock.localportlist = 1000 + i
+		sock.reconmode = PL_SOCK_RECONMODE_1
+		sock.inconmode = PL_SOCK_INCONMODE_ANY_IP_ANY_PORT
+				
+	next i
+	
+	sys.buffalloc		'allocate memory to the RX / TX buffer
+	
+	net.ip = "192.168.1.227"	'The IP address of the Device, change as needed
+end sub
+
+sub on_sock_event(newstate as pl_sock_state,newstatesimple as pl_sock_state_simple)	'wait for the connection to be established and send a welcome message
+
+	if newstatesimple = PL_SSTS_EST then
+		sock.setdata("Connected... This demo will echo what you type, to terminate the connection, please press 'Enter'/n")
+		sock.send
+	end if
+end sub
+
+sub on_sock_data_arrival	'simply echo back the data received, exit when "enter" is encountered
+
+	dim s as string
+	
+	s = sock.getdata(1)
+	
+	if s = chr(13) then
+		sock.setdata("closing connection...")
+		sock.send
+		sock.close
+	else
+		sock.setdata(s)
+		sock.send
+	end if
+	
+end sub

@@ -1,0 +1,14 @@
+[project]
+watch=s, io.state, io.num, stor.size, x
+[file1]
+line=42
+cursor=0
+opened=active
+bookmarks=
+breakpoints=
+[file2]
+line=0
+cursor=0
+opened=yes
+bookmarks=
+breakpoints=
