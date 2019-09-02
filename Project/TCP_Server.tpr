@@ -1,11 +1,11 @@
 [project]
-version=3.07.61
-platform=Em1000
-src_lib_ver=2_00
+version=1
+platform=TPP3W(G2)
+src_lib_ver=2_01_03
 name=TCP_Server
 output=TCP_Server.tpc
 debug=off
-defines=/dLCD_TYPE=SAMSUNG_S6B0108 /dOBJECT_LCD=LCD_ENABLED /dOBJECT_FD=FD_ENABLED /dOBJECT_KP=KP_ENABLED 
+defines= /dLCD_TYPE=SAMSUNG_S6B0108 /dOBJECT_LCD=LCD_ENABLED /dOBJECT_FD=FD_ENABLED /dOBJECT_KP=KP_ENABLED
 transport=udp_broadcast
 [address1]
 platform=Em1000
